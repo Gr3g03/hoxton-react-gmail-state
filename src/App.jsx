@@ -5,13 +5,27 @@ import initialEmails from './data/emails'
 import './App.css'
 
 import { useState } from 'react'
-import emails from './data/emails'
 
 function App() {
   // Use initialEmails for state
-  let [Emails, setEmails] = useState(initialEmails)
-  console.log(Emails)
+  let [emails, setEmails] = useState(initialEmails)
+  // console.log(emails)
 
+  const allEmails = [...emails]
+  console.log(allEmails)
+
+
+  function toggleRead() {
+    const readEmails = [...emails]
+
+    setEmails(readEmails)
+
+  }
+  function toggleStar() {
+    const staredEmails = [...emails]
+
+    setEmails(staredEmails)
+  }
 
   return (
     <div className="app">
@@ -20,17 +34,21 @@ function App() {
         <ul className="inbox-list">
           <li
             className="item active"
-          // onClick={() => {}}
+          // onClick={() => { }}
           >
             <span className="label">Inbox</span>
-            <span className="count">?</span>
+            {allEmails.map(function (email) {
+              return <span className="count"> {email.read.length}</span>
+            })
+            }
           </li>
           <li
             className="item"
           // onClick={() => {}}
           >
             <span className="label">Starred</span>
-            <span className="count">?</span>
+            {allEmails.map(email => (
+              <span className="count"> {email.starred}</span>))}
           </li>
 
           <li className="item toggle">
@@ -44,7 +62,27 @@ function App() {
           </li>
         </ul>
       </nav>
-      <main className="emails">{/* Render a list of emails here */}</main>
+      <main className="emails">
+        {emails.map(email =>
+        (
+          <div key={email} className="email">
+            <input
+              type="checkbox"
+              onChange={() => toggleRead(email)}
+              checked={email.read}
+            />
+            <input
+              type="checkbox"
+              onChange={() => toggleStar(email)}
+              checked={email.starred}
+              className="stared-emails"
+            />
+            <span className="sender">{email.sender}</span>
+            <span className="title">{email.title}</span>
+          </div>
+        )
+        )}
+      </main>
     </div>
   )
 }
