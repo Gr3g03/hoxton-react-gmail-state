@@ -84,7 +84,7 @@ function App() {
                 type="checkbox"
                 onChange={() => toggleStar(email)}
                 checked={email.starred}
-                className="stared-emails"
+                className="star-checkbox"
               />
               <span className="sender">{email.sender}</span>
               <span className="title">{email.title}</span>
