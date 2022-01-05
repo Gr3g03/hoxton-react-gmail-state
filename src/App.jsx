@@ -12,17 +12,25 @@ function App() {
   // console.log(emails)
 
   const allEmails = [...emails]
-  console.log(allEmails)
+  // console.log(allEmails)
 
 
-  function toggleRead() {
+  function toggleRead(email) {
     const readEmails = [...emails]
+
+    email.read = !email.read
 
     setEmails(readEmails)
 
   }
-  function toggleStar() {
+
+  // const showReaded = () => setEmails(!read)
+  // const showStarred = () => !setEmailsstarred
+
+  function toggleStar(email) {
     const staredEmails = [...emails]
+
+    email.starred = !email.starred
 
     setEmails(staredEmails)
   }
@@ -65,21 +73,23 @@ function App() {
       <main className="emails">
         {emails.map(email =>
         (
-          <div key={email} className="email">
-            <input
-              type="checkbox"
-              onChange={() => toggleRead(email)}
-              checked={email.read}
-            />
-            <input
-              type="checkbox"
-              onChange={() => toggleStar(email)}
-              checked={email.starred}
-              className="stared-emails"
-            />
-            <span className="sender">{email.sender}</span>
-            <span className="title">{email.title}</span>
-          </div>
+          <ul>
+            <li key={email.id} className="email">
+              <input
+                type="checkbox"
+                onChange={() => toggleRead(email)}
+                checked={email.read}
+              />
+              <input
+                type="checkbox"
+                onChange={() => toggleStar(email)}
+                checked={email.starred}
+                className="stared-emails"
+              />
+              <span className="sender">{email.sender}</span>
+              <span className="title">{email.title}</span>
+            </li>
+          </ul>
         )
         )}
       </main>
